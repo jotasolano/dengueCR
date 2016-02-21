@@ -1,7 +1,7 @@
-library(shiny)
-library(d3heatmap)
-library(leaflet)
-library(rCharts)
+# library(shiny)
+# library(d3heatmap)
+# library(leaflet)
+# library(rCharts)
 
 # fluidPage(
 #   h1("A heatmap demo"),
@@ -10,9 +10,24 @@ library(rCharts)
 #   d3heatmapOutput("heatmap")
 # )
 
-bootstrapPage(mainPanel(width = 12, 
-  div(class = "row",
-      div(showOutput("heatmap", "d3heatmap"), class = "span6"),
-      div(showOutput("geomap", "leaflet"), class = "span6")
+# bootstrapPage(mainPanel(width = 12, 
+#   div(class = "row",
+#       div(d3heatmapOutput("heatmap"), class = "span6"),
+#       div(leafletOutput("geomap"), class = "span6")
+#   )
+# ))
+
+fluidPage(
+  
+  titlePanel("Dengue Incidence in CR"),
+  
+  fluidRow(
+    column(6,
+      d3heatmapOutput("heatmap")
+           ),
+ 
+    column(6,
+           leafletOutput("geomap")
+           )
   )
-))
+)

@@ -5,14 +5,16 @@ library(shiny)
 library(leaflet)
 library(rCharts)
 
+#convert to df and drop total
+cases <- read.csv("casos_2015.csv") %>%
+  select(-Total) %>%
+  select(-Semana)
+
+data <- read.csv("cantones.csv")
+
+
 function(input, output, session) {
   output$heatmap <- renderD3heatmap({
-    
-    #convert to df and drop total
-    cases <- read.csv("casos_2015.csv") %>%
-      select(-Total) %>%
-      select(-Semana)
-    
     
     d3heatmap(cases, scale = "row",
               dendrogram = "none",
@@ -21,8 +23,7 @@ function(input, output, session) {
               show_grid = 0.2)
   })
   
-  output$geomap <- renderPlot({
-    data <- read.csv("cantones.csv")
+  output$geomap <- renderLeaflet({
 
     casos_popup <- paste0("<strong>Canton:  </strong>", data$canton,
                           "<br><strong>Cases:  </strong>", data$casos,
