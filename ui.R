@@ -1,14 +1,9 @@
-# library(shiny)
-# library(d3heatmap)
-# library(leaflet)
-# library(rCharts)
+library(shiny)
+library(shinydashboard)
+library(d3heatmap)
+library(leaflet)
+library(rCharts)
 
-# fluidPage(
-#   h1("A heatmap demo"),
-#   selectInput("palette", "Palette", c("YlOrRd", "RdYlBu", "Greens", "Blues")),
-#   checkboxInput("cluster", "Apply clustering"),
-#   d3heatmapOutput("heatmap")
-# )
 
 # bootstrapPage(mainPanel(width = 12, 
 #   div(class = "row",
@@ -17,17 +12,69 @@
 #   )
 # ))
 
-fluidPage(
-  
-  titlePanel("Dengue Incidence in CR"),
-  
-  fluidRow(
-    column(6,
-      d3heatmapOutput("heatmap")
-           ),
- 
-    column(6,
-           leafletOutput("geomap")
-           )
+dashboardPage(skin = "black",
+  dashboardHeader(title = "Dengue in Costa Rica"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+      menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+    )
+  ),
+
+
+  dashboardBody(
+    tabItems(
+      # First tab content
+      tabItem(tabName = "dashboard",
+              fluidPage(
+                d3heatmapOutput("heatmap")
+              )
+      ),
+                
+      
+      # Second tab content
+      tabItem(tabName = "widgets",
+              fluidPage(
+                leafletOutput("geomap")
+              )
+      )
+    )
   )
 )
+
+
+  
+  
+    
+#   dashboardBody(
+#     fluidPage(
+#       # titlePanel("Dengue Incidence in CR"),
+#       
+#       fluidRow(
+#         column(6,
+#                d3heatmapOutput("heatmap")
+#         ),
+#         
+#         column(6,
+#                leafletOutput("geomap")
+#         )
+#       )
+#     )
+#   )
+  
+# )
+
+# fluidPage(
+#   
+#   titlePanel("Dengue Incidence in CR"),
+#   
+#   fluidRow(
+#     column(6,
+#       d3heatmapOutput("heatmap")
+#            ),
+#  
+#     column(6,
+#            leafletOutput("geomap")
+#            )
+#   )
+# )

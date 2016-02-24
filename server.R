@@ -40,6 +40,4 @@ function(input, output, session) {
   })
 }
 
-#xn = names(cases_matrix[1,])
-
 
