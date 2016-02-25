@@ -16,8 +16,9 @@ dashboardPage(skin = "black",
   dashboardHeader(title = "Dengue in Costa Rica"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-      menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+
+      menuItem("Map distribution", tabName = "widgets", icon = icon("th")),
+      menuItem("Year Incidence", tabName = "dashboard", icon = icon("calendar"))
     )
   ),
 
@@ -27,7 +28,17 @@ dashboardPage(skin = "black",
       # First tab content
       tabItem(tabName = "dashboard",
               fluidPage(
-                d3heatmapOutput("heatmap")
+                fluidRow(
+                  tags$head(tags$style(HTML('
+                                            .col-sm-6 {
+                                            width: 100%;
+                                            }
+                                            '))),
+                  
+                  box(title = "Incidence by week",
+                    d3heatmapOutput("heatmap")
+                )
+              )
               )
       ),
                 
@@ -35,7 +46,16 @@ dashboardPage(skin = "black",
       # Second tab content
       tabItem(tabName = "widgets",
               fluidPage(
-                leafletOutput("geomap")
+                fluidRow(
+                  tags$head(tags$style(type = "text/css",'
+                                            #geomap {
+                                            height: 80vh !important;
+                                            }
+                                            ')),
+                  box(title = "Geographical distribution",
+                    leafletOutput("geomap")
+                  )
+                )
               )
       )
     )
